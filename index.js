@@ -19,10 +19,8 @@
 })();
 
 // Helpers
-function getRealPos(e, canvas) {
-  return [e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop];
-}
-function colorGenerator() {
+const getRealPos = (e, canvas) => [e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop];
+const colorGenerator = () => {
   const colors = [
     ['#44AF69', 'Green'],
     ['#F8333C', 'Red'],
@@ -32,8 +30,10 @@ function colorGenerator() {
   ];
   let i = 0;
   return () => colors[i++ % colors.length];
-}
+};
+const clearRect = ctx => ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+// TODO: When no fingers are touching show light text with instructions.
 // Main application
 function startSequence() {
   // First remove welcome screen
@@ -63,7 +63,12 @@ function startSequence() {
   const touches = new Map();
 
   function touchStart(e) {
+    if (playingWinAnimation) {
+      return;
+    }
+
     if (document.getElementById('centeredTextBox').innerText) {
+      clearRect(context);
       document.getElementById('centeredTextBox').innerText = '';
     }
 
@@ -82,9 +87,6 @@ function startSequence() {
         context.stroke();
       }
     }
-    if (playingWinAnimation) {
-      playingWinAnimation = false;
-    }
 
     if (playingAnimation) {
       // Restart animation on new touch
@@ -100,6 +102,10 @@ function startSequence() {
   }
 
   function touchMove(e) {
+    if (playingWinAnimation) {
+      return;
+    }
+
     for (let i = 0; i < e.touches.length; ++i) {
       const touch = e.touches[i];
       const { pageX, pageY, identifier } = touch;
@@ -113,18 +119,6 @@ function startSequence() {
         console.log(touches, touch);
       }
     }
-
-    if (e.touches.length === 1) {
-      // If there's only one finger, let them draw.
-      const { x, y, color } = touches.get(e.touches[0].identifier);
-      context.beginPath();
-      context.arc(x, y, 10, 0, 2 * Math.PI);
-
-      context.fillStyle = color[0];
-      context.strokeStyle = color[0];
-      context.fill();
-      context.stroke();
-    }
   }
 
   function touchEnd(e) {
@@ -137,18 +131,24 @@ function startSequence() {
         console.log(touches, touch);
       }
     }
-    if (touches.size === 0 && !playingWinAnimation) {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-    }
 
     if (touches.size < 2 && playingAnimation && !playingWinAnimation) {
       playingAnimation = false;
     }
   }
 
+  // Watching the click event allows us to watch for "quick touches". Use this to clear a win screen
+  function quickTouch(e) {
+    if (!playingAnimation && !playingWinAnimation) {
+      clearRect(context);
+      document.getElementById('centeredTextBox').innerText = '';
+    }
+  }
+
   canvas.addEventListener('touchstart', touchStart);
   canvas.addEventListener('touchmove', touchMove);
   canvas.addEventListener('touchend', touchEnd);
+  canvas.addEventListener('click', quickTouch);
 
   function startAnimation() {
     // Animate the circles
@@ -184,9 +184,7 @@ function startSequence() {
         } else {
           window.requestAnimationFrame(animateTouches);
         }
-      } else {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-      }
+      } else clearRect(context);
     };
 
     window.requestAnimationFrame(animateTouches);
@@ -205,6 +203,13 @@ function startSequence() {
         context.arc(x, y, arcSize * 10, 0, 2 * Math.PI);
         context.fillStyle = color[0];
         context.fill();
+
+        // Draw a black circle where the winners finger was for increased clarity
+        context.beginPath();
+        context.arc(x, y, 20, 0, 2 * Math.PI);
+        context.strokeStyle = 'black';
+        context.lineWidth = 5;
+        context.stroke();
 
         arcSize += 1;
         if (arcSize > 80) {
@@ -231,7 +236,7 @@ function startSequence() {
       } else {
         // If the page not visible for longer than 5 seconds, fade back in the welcome screen.
         visibilityTimerRef = window.setTimeout(() => {
-          context.clearRect(0, 0, canvas.width, canvas.height);
+          clearRect(context);
           document.getElementById('welcomeScreen').style.display = 'block';
           document.getElementById('welcomeScreen').style.opacity = 1;
         }, 5000);
