@@ -178,7 +178,7 @@ function startSequence() {
         });
 
         arcSize -= 0.5;
-        if (arcSize < 1) {
+        if (arcSize < 1 && !playingWinAnimation) {
           playingAnimation = false;
           startWinAnimation(winner[1]);
         } else {
