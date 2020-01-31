@@ -11,7 +11,13 @@
   // Store core files in a cache (including a page to display when offline)
   function updateStaticCache() {
     return caches.open(version + staticCacheName).then(function(cache) {
-      return cache.addAll(['/sequence/index.js', '/sequence/index.css', '/sequence/icon.png', '/sequence/index.html']);
+      return cache.addAll([
+        '/sequence/index.js',
+        '/sequence/index.css',
+        '/sequence/icon-192.png',
+        '/sequence/icon-512.png',
+        '/sequence/index.html',
+      ]);
     });
   }
 
