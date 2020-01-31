@@ -3,7 +3,7 @@
   "short_name": "Sequence",
   "description": "A 1st player picker by egrodo",
   "lang": "en",
-  "start_url": "/sequence",
+  "start_url": "/sequence/",
   "display": "standalone",
   "theme_color": "#000000",
   "icons": [
