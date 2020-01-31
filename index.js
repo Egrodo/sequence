@@ -34,11 +34,12 @@ function colorGenerator() {
   return () => colors[i++ % colors.length];
 }
 
-// TODO: Detect idle for x seconds and add welcome screen back.
 // Main application
 function startSequence() {
   // First remove welcome screen
-  document.getElementById('welcomeScreen').hidden = true;
+  document.getElementById('welcomeScreen').style.opacity = 0;
+  // Fade in
+  window.setTimeout(() => (document.getElementById('welcomeScreen').style.display = 'none'), 500);
 
   // Init canvas
   const canvas = document.getElementById('canvas');
@@ -191,7 +192,6 @@ function startSequence() {
     window.requestAnimationFrame(animateTouches);
   }
 
-  // Let this be interruptable too.
   function startWinAnimation({ x, y, color }) {
     playingWinAnimation = true;
 
@@ -219,4 +219,25 @@ function startSequence() {
 
     window.requestAnimationFrame(winAnimation);
   }
+
+  let visibilityTimerRef = null;
+  // Use the interaction observer API to detect when the user has been off the app for some time and refresh the welcome screen
+  const visibilityChange = () => {
+    console.log('visible change');
+    if (document.hidden) {
+      if (visibilityTimerRef) {
+        window.clearTimeout(visibilityTimerRef);
+        visibilityTimerRef = null;
+      } else {
+        // If the page not visible for longer than 5 seconds, fade back in the welcome screen.
+        visibilityTimerRef = window.setTimeout(() => {
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          document.getElementById('welcomeScreen').style.display = 'block';
+          document.getElementById('welcomeScreen').style.opacity = 1;
+        }, 5000);
+      }
+    }
+  };
+
+  document.addEventListener('visibilitychange', visibilityChange);
 }
