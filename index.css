@@ -1,0 +1,105 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  
+  font-family: 'Orbitron', sans-serif;
+  overflow: hidden;
+  background: black;
+}
+
+#welcomeScreen {
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 50vh;
+  text-align: center;
+  margin-top: 1.5rem
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1 {
+  width: 100%;
+  
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  margin: 0 0 0.3rem 0;
+}
+
+h2 {
+  margin: 0;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: normal;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.btnContainer {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  top: 40%;
+  transform: translateY(-60%);
+}
+
+#startBtn {
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  font-size: 2.5rem;
+
+  background: transparent;
+  text-shadow: 1px 1px 10px white;
+
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 4px solid white;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  padding-bottom: 1px;
+  margin: 0;
+}
+
+#canvas {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+}
+
+#centeredTextBox {
+  width: 100%;
+  position: fixed;
+  top: 40%;
+  transform: translateY(-60%);
+  z-index: 10;
+  
+  color: white;
+  font-size: 3.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 15px black;
+}t
