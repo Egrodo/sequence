@@ -33,13 +33,15 @@ const colorGenerator = () => {
 };
 const clearRect = ctx => ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// TODO: When no fingers are touching show light text with instructions.
 // Main application
 function startSequence() {
-  // First remove welcome screen
-  document.getElementById('welcomeScreen').style.opacity = 0;
+  // First remove welcome screen & display instructions
+  document.getElementById('welcomeScreen').style.opacity = '0';
+  document.getElementById('topTextBox').style.display = 'block';
+
   // Fade in
   window.setTimeout(() => (document.getElementById('welcomeScreen').style.display = 'none'), 500);
+  window.setTimeout(() => (document.getElementById('topTextBox').style.opacity = '1'), 700);
 
   // Init canvas
   const canvas = document.getElementById('canvas');
@@ -65,6 +67,11 @@ function startSequence() {
   function touchStart(e) {
     if (playingWinAnimation) {
       return;
+    }
+
+    if (document.getElementById('topTextBox').style.opacity === '1') {
+      document.getElementById('topTextBox').style.opacity = 0;
+      document.getElementById('topTextBox').style.display = 'none';
     }
 
     if (document.getElementById('centeredTextBox').innerText) {
@@ -134,6 +141,15 @@ function startSequence() {
 
     if (touches.size < 2 && playingAnimation && !playingWinAnimation) {
       playingAnimation = false;
+    }
+    if (touches.size === 0 && !playingAnimation && !playingWinAnimation) {
+      // If the user has not touched the screen for more than 5 seconds, add the instructions back.
+      window.setTimeout(() => {
+        if (!playingAnimation && !playingWinAnimation) {
+          document.getElementById('topTextBox').style.display = 'block';
+          window.setTimeout(() => (document.getElementById('topTextBox').style.opacity = '1'), 700);
+        }
+      }, 5000);
     }
   }
 

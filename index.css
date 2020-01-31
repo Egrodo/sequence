@@ -59,6 +59,14 @@ h2 {
   letter-spacing: 2px;
 }
 
+#topTextBox {
+  margin: 1rem 0.5rem 0 0.5rem;
+  text-align: center;
+  transition: opacity 0.3s linear;
+  color: white;
+  font-size: 1rem;
+}
+
 .btnContainer {
   position: fixed;
   text-align: center;
