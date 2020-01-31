@@ -2,24 +2,16 @@
 (() => {
   document.getElementById('startBtn').addEventListener('click', startSequence);
 
-  // Register sw
+  // Register service worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker
         .register('service-worker.js')
         .then(
-          function(registration) {
-            // Registration was successful
-            console.log('Registered!');
-          },
-          function(err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-          },
+          () => console.log('Service worker registered!'),
+          () => console.log('Service worker registration failed: ', err),
         )
-        .catch(function(err) {
-          console.log(err);
-        });
+        .catch(err => console.log(err));
     });
   } else {
     console.log('service worker is not supported');
