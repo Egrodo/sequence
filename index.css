@@ -82,7 +82,8 @@ h2 {
   font-size: 2.5rem;
 
   background: transparent;
-  text-shadow: 1px 1px 10px white;
+  text-shadow: 0 0 10px white;
+  animation: 3s infinite linear alternate-reverse glow;
 
   color: white;
   font-weight: bold;
@@ -94,6 +95,11 @@ h2 {
   outline: none;
   padding-bottom: 1px;
   margin: 0;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px white }
+  to { text-shadow: 0 0 20px white, 0 0 20px white }
 }
 
 #canvas {
