@@ -30,6 +30,7 @@ const colorGenerator = () => {
     ['#E59500', 'Orange'],
     ['#2B9EB3', 'Cyan'],
     ['#D8D52B', 'Yellow'],
+    ['D200E9', 'Purple'],
   ];
   let i = Math.floor(Math.random() * colors.length);
   return () => colors[i++ % colors.length];
