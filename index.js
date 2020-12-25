@@ -31,7 +31,7 @@ const colorGenerator = () => {
     ['#2B9EB3', 'Cyan'],
     ['#D8D52B', 'Yellow'],
   ];
-  let i = 0;
+  let i = Math.floor(Math.random() * colors.length);
   return () => colors[i++ % colors.length];
 };
 const clearRect = (ctx) => ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -288,6 +288,7 @@ function startSequence() {
         // If the page not visible for longer than 5 seconds, fade back in the welcome screen.
         visibilityTimerRef = window.setTimeout(() => {
           clearRect(context);
+          document.getElementById('centeredTextBox').innerText = '';
           document.getElementById('welcomeScreen').style.display = 'block';
           document.getElementById('welcomeScreen').style.opacity = 1;
         }, 5000);
