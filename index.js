@@ -26,6 +26,7 @@ const COLORS = [
   ["#2B9EB3", "Cyan"],
   ["#D8D52B", "Yellow"],
   ["#D200E9", "Purple"],
+  ["#5C415D", "Violet"],
 ];
 
 const welcomeScreenEl = document.getElementById("welcomeScreen");
@@ -171,9 +172,6 @@ function startSequence() {
   }
 
   function touchEnd(e) {
-    if (playingWinAnimation) {
-      return;
-    }
     for (let i = 0; i < e.changedTouches.length; ++i) {
       const touch = e.changedTouches[i];
       if (touches.has(touch.identifier)) {
