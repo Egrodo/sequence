@@ -121,3 +121,16 @@ h2 {
   text-align: center;
   text-shadow: 1px 1px 15px black;
 }
+
+.colorBlockContainer {
+  height: 1rem;
+  width: 100%;
+  display: flex;
+  text-align: center;
+}
+
+.colorBlock {
+  width: auto;
+  flex: 1;
+  height: 100%;
+}
