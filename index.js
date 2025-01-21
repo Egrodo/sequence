@@ -288,8 +288,10 @@ function startSequence() {
   function startWinAnimation({ x, y, color }) {
     playingWinAnimation = true;
 
-    // Short vibration
-    window.navigator.vibrate(200);
+    // Try vibrating
+    try {
+      window.navigator.vibrate(200);
+    } catch (_e) {} // No worries about failing, iOS Safari doesn't support this API
 
     audio.pause();
 

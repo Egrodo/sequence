@@ -5,9 +5,10 @@ html {
   height: 100%;
   width: 100%;
 
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   overflow: hidden;
   background: black;
+  touch-action: pan-x pan-y;
 }
 
 #welcomeScreen {
@@ -26,7 +27,7 @@ header {
   width: 100vw;
   height: 50vh;
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 a {
@@ -35,6 +36,7 @@ a {
   color: inherit;
   font-size: inherit;
   font-family: inherit;
+  color: #5432fe;
 }
 
 a:hover {
@@ -55,7 +57,7 @@ h2 {
   margin: 0;
   width: 100%;
   font-size: 1rem;
-  font-weight: normal;
+  font-weight: 600;
   color: white;
   letter-spacing: 2px;
 }
@@ -99,8 +101,12 @@ h2 {
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 5px white }
-  to { text-shadow: 0 0 20px white, 0 0 20px white }
+  from {
+    text-shadow: 0 0 5px white;
+  }
+  to {
+    text-shadow: 0 0 20px white, 0 0 20px white;
+  }
 }
 
 #canvas {
